@@ -1,0 +1,112 @@
+
+Order of Execution(Final Version)
+---------------------------------
+if file exist in IN folder..
+1. (i) REINDEX the existing Index name to <indexname>_YYMMDD and 
+  (ii) DELETE contents Index name 
+2. PreFSCrawler Activity 
+	i : copy received PDF files into backup folder /YY/MM/DD
+	ii : rename the pdf files
+3. FSCrawler (we need to check job status..)
+4. PostFSCrawler Activity
+	i : arch. renamed files to Processes/YY/MM/DD
+5. logstash Job
+
+Dev
+Testing
+Placing Testing
+Complete Task 
+DEv and QA
+
+POST _reindex
+{
+  "source" : {
+	"index" : "processtemplates" 
+  },	
+ "dest" : {
+	"index" : "<processtemplates-{now/d}>"    
+  }
+}
+
+For Example: processtemplates-2021.06.23
+POST _reindex
+{
+  "source" : {
+              "index" : "processtemplates" 
+  },          
+"dest" : {
+              "index" : "<processtemplates-{now/d{yyyy.MM.dd}}>"    
+  }
+}
+
+
+POST processtemplates/_delete_by-query
+{
+  "query" : {
+	"match_all" : {} 
+  }	
+}  
+
+PUT processtemplates
+{
+      "settings": {
+         "analysis": {
+            "analyzer": {
+               "fl_analyzer": {
+                  "type": "custom",
+                  "tokenizer": "fl_tokenizer"
+               }
+            },
+            "tokenizer" : {
+				"fl_tokenizer": {
+						"type":"char_group",
+						"tokenize_on_chars":[
+						"whitespace", "symbol"]
+					} 
+				}
+         }
+      },
+      "mappings": {
+         "doc": { 
+           "properties" : {
+           "content": {
+             "type": "text",
+             "analyzer": "fl_analyzer"
+           }
+         } 
+         }
+       }
+   }
+
+
+/data/fscrawler-dev/CognitiveClaims/Export/IN
+
+1. Make sure, This 'IN' folder should be empty. 
+2. i.Once MoveIT job completes, we may have files in this folder. 
+   ii.Copy original file to Processed folder. FRMTMPL_20210421195910_4df1c8c7-a3a1-4ee4-bb25-ada3bd7d9a59.pdf
+3. rename the file(s) in IN folder.
+4. Run "RENAME (or) REINDEX the existing name with current Date"
+5. Run FS Crawler Job. <verify, FS Crawler job can move processed files?. ***>
+6. Run Logstash Job.
+7. Move renamed files into Processes/YY/MM/DD
+
+/data/fscrawler-dev/CognitiveClaims/Export/Processed
+FRMTMPL_20210421195910_4df1c8c7-a3a1-4ee4-bb25-ada3bd7d9a59.pdf
+
+/data/fscrawler-dev/CognitiveClaims/Export/OUT
+
+Order of Execution
+if file exist in IN folder..
+1. (i) REINDEX the existing Index name to <indexname>_YYMMDD and (ii) DELETE contents Index name 
+2. logstash Job
+3. PreFSCrawler Activity 
+	i : copy received PDF files into backup folder /YY/MM/DD
+	ii : rename the pdf files
+4. FSCrawler (we need to check job status..)
+5. PostFSCrawler Activity
+	i : arch. renamed files to Processes/YY/MM/DD
+Dev
+Testing
+Placing Testing
+Complete Task 
+DEv and QA

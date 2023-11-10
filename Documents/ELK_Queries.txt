@@ -1,0 +1,448 @@
+GET formstabletemplate/_search
+{
+ "query" : {
+    "wildcard": {
+      "doc_typ": "*form*"
+    }
+ } 
+}
+
+GET formstabletemplate/_search
+{
+ "query" : {
+    "wildcard": {
+      "doc_typ": "*form*"
+    }
+ } 
+}
+
+GET formstabletemplate/_search
+{
+  "query": {
+    "dis_max": {
+      "queries": [
+        { "match_phrase_prefix": { "doc_typ": "zurich" }},
+        { "match_phrase_prefix": { "frm_nbr": "outline" }}
+      ]
+    }
+  }
+}
+
+GET formspdf2template/_search?pretty=true&size=20
+{
+  "_source": ["tmpl_id","doc_ttl","frm_nbr","frm_ltr_catg","message"],
+  "query" : {
+    "match_phrase_prefix": {
+      "doc_ttl" : "34038"
+    }
+    }
+ }
+
+POST formspdf2template/_update_by_query
+{
+  "script": "ctx._source.remove(\"role1\")"
+}
+
+//without affecting other attributes ****
+POST formspdf2template/_doc/FRMTMPL_20210428131646_ad3a2cce-e0ac-4975-83ec-3b76695df586.pdf/_update  
+{  
+   "doc": {  
+	"role2" : "role22",
+	"role3" : "role33"
+	}  
+}
+
+POST formspdf2template/doc/FRMTMPL_20210428131639_aced91e7-f094-4e9d-a093-bc4a18bb4ddd.pdf
+{
+  "role1" : "role 1",
+  "role2" : "role 2" 
+}
+
+
+#Multi fields search
+GET jsonvalidate2/_search
+{
+	"query":{
+      "multi_match" : {
+         "query": "5022632605",
+         "fields": [ "claimNumber", "guid" ]
+      }
+   }
+}
+
+GET formspdf2template/_search
+{
+   "_source": ["_index","_id","meta.date","role"]
+}
+
+{
+ "query" : {
+    "wildcard": {
+      "file.filename": "*4800*"
+    }
+ } 
+}
+
+POST formspdf2template/doc/FRMTMPL_20210428131655_af57b24f-5ec7-4800-9253-415e51d9c960
+{
+  "role2" : "role two" 
+}
+
+POST formspdf2template/_update_by_query
+{
+  "script": "ctx.role3 = ctx._source.file.filename.substring(23,59)"
+}
+
+POST formspdf2template/_update_by_query
+{
+  "script": {
+    "lang": "painless",
+    "source": """
+      if (ctx._source.meta.date =~ /21T/) {
+        ctx._source.role = "21T";
+      } else {
+        ctx._source.role = "other";
+      }
+    """
+  }
+}
+
+POST formspdf2template/_update_by_query
+{
+  "script": {
+    "lang": "painless",
+    "source": """
+      if (ctx._source.role =~ /d94d0283-8cc0-474a-bed1-c37864714d86/) {
+        ctx._source.role = "d94d0283-8cc0-474a-bed1-c37864714d86";
+        ctx._source.file.filename = "FRMTMPL_20210428131639_d94d0283-8cc0-474a-bed1-c37864714d86.pdf";
+      }
+    """
+  }
+}
+ 
+#Multiple search in 2 indecies
+GET _msearch
+{"index":"formstabletemplate" }
+{"query":{"wildcard": {"doc_tmpl_id": "*4800*"}}}
+{"index":"formspdf2template"}
+{"query":{"wildcard": {"file.filename": "*4800*"}}}
+
+GET formspdftemplate/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+GET forms_tablepdf_template/_search
+
+#formsTablePDFtemplate
+
+GET pdfanalyze/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET pdfanalyze/_search
+{
+  "stored_fields" : [],
+  "query": {
+    "match":{
+			"file.filename":"FRMTMPL_20210421195902_ac439ba2-fb0d-4476-ab89-b3c82f5eb6cf.pdf"
+		}
+  }
+}
+
+GET pdfanalyze/_search
+{
+  "stored_fields" : [],
+  "query": {
+    "wildcard":{
+			"file.filename":"*_ac439ba2-fb0d-4476-ab89-b3c82f5eb6cf.pdf"
+		}
+  }
+}
+
+POST /pdfanalyze/_delete_by_query
+{
+  "query": {
+    "match":{
+			"file.filename":"SamplePdf4.pdf"
+		}
+  }
+}
+
+GET /pdfanalyze/_mapping
+
+GET pdfanalyze/_search
+
+POST pdftemplate/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET pdftemplate/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET pdftemplate/_search
+{
+  "query": {
+    "match": {
+      "tmpl_id":"aa90823jlk"
+    }
+  }
+}
+
+POST /pdftemplate/_delete_by_query
+{
+  "query": {
+    "match":{
+			"_id":"GKgqBXkBrKZ3XOmlDSds"
+		}
+  }
+}
+
+POST jsonanalyse/_delete_by_query
+{"query": {
+    "match_all": {}
+  }
+}
+
+GET jsonanalyse/_search
+{
+	"query":{
+		"match":{
+			"claimNumber":"3012442254"
+		}
+	}
+}
+GET jsonanalyse/_search
+{
+	"query":{
+		"match":{
+			"docNumber":"30300"
+		}
+	}
+}
+
+GET jsonanalyse?include_type_name=false
+
+PUT jsonanalyse?include_type_name=false
+{
+  "mappings": {
+    "properties": {
+      "foo": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+
+GET jsonvalidate2/_search
+{
+  "size": 1000,
+  "from": 0,
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET jsonvalidate2/_search
+{
+	"query":{
+		"match":{
+			"claimNumber":"5022632605"
+		}
+	}
+}
+
+GET jsonvalidate2/_search
+{
+	"query":{
+		"prefix":{
+			"claimantName":"abc2"
+		}
+	}
+}
+
+GET jsonvalidate2/_search
+{
+	"query":{
+      "multi_match" : {
+         "query": "5022632605",
+         "fields": [ "claimNumber", "guid" ]
+      }
+   }
+}
+
+GET formstabletemplate/_search
+GET formspdf2template/_search
+GET forms_tablepdf_template/_search
+
+
+
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "formstabletemplate",
+        "alias": "alias1",
+        "is_write_index": false
+      }
+    }, {
+      "add": {
+        "index": "formspdf2template",
+        "alias": "alias1",
+        "is_write_index": true
+      }
+    }
+  ]
+}
+
+GET alias1/_search
+{
+ "query" : {
+   "bool" : {
+     "should": [
+       {
+       "bool" : { 
+          "must": [
+            { "match": { "doc_typ": "1050 E. William Street" }},
+            { "match": { "doc_ttl": "10/2018" }}
+            ]
+      }
+    },
+    {"wildcard": { "frm_nbr": "80" }}
+   ]
+   }
+ } 
+}
+
+GET alias1/_search
+{ 
+  "_source": ["_index","_id","doc_tmpl_id","doc_typ", "message","frm_nbr","file.filename","role"]
+}
+
+GET alias1/_search
+{ 
+  "_source": ["_index","_id","doc_tmpl_id","doc_typ", "message","frm_nbr","file.filename","content"],
+   "query": {
+    "dis_max": {
+      "queries": [
+        { "wildcard": { "file.filename": "*4800*" }},
+        { "match_phrase_prefix": { "clm_data_cnt" : "WORKERS_COMP" }}
+      ]
+    }
+  }
+}
+
+POST alias1/_update_by_query
+{
+  "script": "ctx._source.role = ctx._source.file.filename.substring(23,59)"
+}
+
+# final query
+GET alias1/_search
+{
+  "_source": ["_index","_id","doc_tmpl_id","doc_typ", "message","frm_nbr","file.filename","content"],
+   "query": {
+    "dis_max": {
+      "queries": [
+        {    
+	    "bool" : {
+	      "should": [
+	        {
+		 "bool" : { 
+		   "should": [
+		      { "match": { "content": "1050 E. William Street" }},
+		      { "match": { "content": "10/2018" }},
+		      { "match": { "content": "Permanent Total Disability (PTD)" }}
+		    ]
+		  }
+	         },
+	         {
+		   "bool" : {
+		     "should": [
+		       {
+		       "bool" : { 
+			  "must": [
+			    { "match": { "doc_typ": "1050 E. William Street" }},
+			    { "match": { "doc_ttl": "10/2018" }}
+			    ]
+		        }
+		      },
+		      { "wildcard": { "frm_nbr": "80" }}
+		     ]
+		   }
+		 }
+	       ]
+	      }
+	}
+      ]
+    }
+  }
+}
+
+POST alias1/_update_by_query
+{
+  "script": "ctx._source.role = 'd94d0283-8cc0-474a-bed1-c37864714d86'"
+}
+
+POST alias1/_update_by_query
+{
+  "script": {
+    "lang": "painless",
+    "inline": "List role2Arr = new ArrayList();if (ctx._source.frm_nbr != null){ role2Arr.add(ctx._source.doc_tmpl_id); }",
+    "source": """
+      if (ctx._source.role != null) {
+        //if(role2Arr.contains(ctx._source.role)) {
+          if(doc['frm_nbr'].value == ctx._source.role) {
+          ctx._source.role2 = 'HAS'
+        } else {
+          ctx._source.role2 = 'NOVALUE'
+        }
+      }
+    """
+  }
+}
+
+GET _xpack/sql?format=json
+{
+  "query": "SELECT doc_tmpl_id, role FROM alias1 where role2='NOVALUE'",
+  "fetch_size": 5
+}
+
+GET _xpack/sql?format=json
+{
+  "query": "SELECT doc_tmpl_id, role FROM alias1 where role='d94d0283-8cc0-474a-bed1-c37864714d86'",
+  "fetch_size": 5
+}
+
+GET _xpack/sql?format=json
+{
+  "query": "SELECT role FROM alias1 where role LIKE '%-8cc0-474a-bed1-%'",
+  "fetch_size": 5
+}
+
+        "inline": "List role2Arr = new ArrayList(); if (ctx._source.frm_nbr != null) { role2Arr.add(ctx._source.doc_tmpl_id); }"
+
+
+GET alias1/_search
+{
+  "_source": ["_index","_id","doc_tmpl_id","doc_typ", "message","frm_nbr","file.filename","role","role2"]
+}
+
+
+
+"query": {
+    "match": {"role2" : "NOVALUE"}
+  }

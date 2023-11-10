@@ -1,0 +1,391 @@
+PUT <destination-index-name>_v623
+{
+    "mappings": 
+	{
+      "doc": {
+        "properties": {
+          "@timestamp": {
+            "type": "date"
+          },
+          "@version": {
+            "type": "text"
+          },
+          "amount_pd": {
+            "type": "long"
+          },
+          "batch_id": {
+            "type": "long"
+          },
+          "bill_nm_as_sig": {
+            "type": "long"
+          },
+          "bill_type": {
+            "type": "text"
+          },
+          "billing_addr1": {
+            "type": "text"
+          },
+          "billing_addr2": {
+            "type": "text"
+          },
+          "billing_city": {
+            "type": "text"
+          },
+          "billing_nm": {
+            "type": "text"
+          },
+          "billing_st": {
+            "type": "text"
+          },
+          "billing_zipcd": {
+            "type": "text"
+          },
+          "clm_nbr": {
+            "type": "text"
+          },
+          "clmt_nm": {
+            "type": "text"
+          },
+          "cond_code": {
+            "type": "text"
+          },
+          "credentials": {
+            "type": "text"
+          },
+          "date_billed": {
+            "type": "date"
+          },
+          "ddc_recvd_dt": {
+            "type": "date"
+          },
+          "drg": {
+            "type": "text"
+          },
+          "facility_addr1": {
+            "type": "text"
+          },
+          "facility_addr2": {
+            "type": "text"
+          },
+          "facility_city": {
+            "type": "text"
+          },
+          "facility_name": {
+            "type": "text"
+          },
+          "facility_npi": {
+            "type": "text"
+          },
+          "facility_st": {
+            "type": "text"
+          },
+          "facility_zipcd": {
+            "type": "text"
+          },
+          "hcfa_ein_ind": {
+            "type": "text"
+          },
+          "hcfa_icd9_1": {
+            "type": "text"
+          },
+          "hcfa_icd9_2": {
+            "type": "text"
+          },
+          "hcfa_icd9_3": {
+            "type": "text"
+          },
+          "hcfa_icd9_4": {
+            "type": "text"
+          },
+          "hcfa_icd_10": {
+            "type": "text"
+          },
+          "hcfa_icd_11": {
+            "type": "text"
+          },
+          "hcfa_icd_12": {
+            "type": "text"
+          },
+          "hcfa_icd_5": {
+            "type": "text"
+          },
+          "hcfa_icd_6": {
+            "type": "text"
+          },
+          "hcfa_icd_7": {
+            "type": "text"
+          },
+          "hcfa_icd_8": {
+            "type": "text"
+          },
+          "hcfa_icd_9": {
+            "type": "text"
+          },
+          "hcfa_ssn_ind": {
+            "type": "text"
+          },
+          "icd_version": {
+            "type": "text"
+          },
+          "image_nm": {
+            "type": "text"
+          },
+          "insd_nm": {
+            "type": "text"
+          },
+          "los_dt": {
+            "type": "date"
+          },
+          "loss_reg": {
+            "type": "text"
+          },
+          "med_bill_form_type": {
+            "type": "text"
+          },
+          "node_id": {
+            "type": "long"
+          },
+          "patient_nbr": {
+            "type": "text"
+          },
+          "paykind_code": {
+            "type": "text"
+          },
+          "prov_name": {
+            "type": "text"
+          },
+          "provider_npi": {
+            "type": "text"
+          },
+          "provreferfname": {
+            "type": "text"
+          },
+          "provreferlname": {
+            "type": "text"
+          },
+          "provrefermname": {
+            "type": "text"
+          },
+          "refer_prov_lic": {
+            "type": "text"
+          },
+          "refer_prov_npi": {
+            "type": "text"
+          },
+          "source_ind": {
+            "type": "text"
+          },
+          "src_ind": {
+            "type": "text"
+          },
+          "tax_id": {
+            "type": "text"
+          },
+          "tot_chgs": {
+            "type": "float"
+          },
+          "treatment_plan_bill_decision": {
+            "type": "text"
+          },
+          "ub92_adm_dt": {
+            "type": "date"
+          },
+          "ub92_adm_dx_cd": {
+            "type": "text"
+          },
+          "ub92_adm_hr": {
+            "type": "long"
+          },
+          "ub92_covg_from": {
+            "type": "date"
+          },
+          "ub92_covg_to": {
+            "type": "date"
+          },
+          "ub92_dschg_hr": {
+            "type": "long"
+          },
+          "ub92_dx_cd1": {
+            "type": "text"
+          },
+          "ub92_dx_cd10": {
+            "type": "text"
+          },
+          "ub92_dx_cd11": {
+            "type": "text"
+          },
+          "ub92_dx_cd12": {
+            "type": "text"
+          },
+          "ub92_dx_cd13": {
+            "type": "text"
+          },
+          "ub92_dx_cd14": {
+            "type": "text"
+          },
+          "ub92_dx_cd15": {
+            "type": "text"
+          },
+          "ub92_dx_cd16": {
+            "type": "text"
+          },
+          "ub92_dx_cd17": {
+            "type": "text"
+          },
+          "ub92_dx_cd18": {
+            "type": "text"
+          },
+          "ub92_dx_cd2": {
+            "type": "text"
+          },
+          "ub92_dx_cd3": {
+            "type": "text"
+          },
+          "ub92_dx_cd4": {
+            "type": "text"
+          },
+          "ub92_dx_cd5": {
+            "type": "text"
+          },
+          "ub92_dx_cd6": {
+            "type": "text"
+          },
+          "ub92_dx_cd7": {
+            "type": "text"
+          },
+          "ub92_dx_cd8": {
+            "type": "text"
+          },
+          "ub92_dx_cd9": {
+            "type": "text"
+          },
+          "ub92_occr_cd": {
+            "type": "text"
+          },
+          "ub92_occr_cd2": {
+            "type": "text"
+          },
+          "ub92_occr_cd3": {
+            "type": "text"
+          },
+          "ub92_occr_cd4": {
+            "type": "text"
+          },
+          "ub92_prc_cd1": {
+            "type": "text"
+          },
+          "ub92_prc_cd2": {
+            "type": "text"
+          },
+          "ub92_prc_cd3": {
+            "type": "text"
+          },
+          "ub92_prc_cd4": {
+            "type": "text"
+          },
+          "ub92_prc_cd5": {
+            "type": "text"
+          },
+          "ub92_prc_cd6": {
+            "type": "text"
+          },
+          "ub92_type_of_bill": {
+            "type": "text"
+          },
+          "ub_admin_source": {
+            "type": "text"
+          },
+          "ub_admin_type": {
+            "type": "text"
+          },
+          "ub_attending_prov_npi": {
+            "type": "text"
+          },
+          "ub_bill_prov_npi": {
+            "type": "text"
+          },
+          "ub_eci1": {
+            "type": "text"
+          },
+          "ub_eci2": {
+            "type": "text"
+          },
+          "ub_eci3": {
+            "type": "text"
+          },
+          "ub_occ_dt1": {
+            "type": "date"
+          },
+          "ub_occ_dt2": {
+            "type": "date"
+          },
+          "ub_occ_dt3": {
+            "type": "date"
+          },
+          "ub_occ_dt4": {
+            "type": "date"
+          },
+          "ub_operating_physician_npi": {
+            "type": "text"
+          },
+          "ub_other_proc_dt2": {
+            "type": "date"
+          },
+          "ub_other_proc_dt3": {
+            "type": "date"
+          },
+          "ub_other_proc_dt4": {
+            "type": "date"
+          },
+          "ub_other_proc_dt5": {
+            "type": "date"
+          },
+          "ub_other_proc_dt6": {
+            "type": "date"
+          },
+          "ub_patient_reason1": {
+            "type": "text"
+          },
+          "ub_patient_reason2": {
+            "type": "text"
+          },
+          "ub_patient_reason3": {
+            "type": "text"
+          },
+          "ub_patient_status": {
+            "type": "text"
+          },
+          "ub_principal_proc_dt": {
+            "type": "date"
+          }
+        }
+      }
+    }
+  }
+
+** Suggest by ELK Support Team
+
+POST _reindex?wait_for_completion=false
+{
+	"source": {
+		"index": "<source-index-name>"
+	},
+	"dest": {
+		"index": "<destination-index-name>_v623",
+		"version_type": "external"
+	},
+	"script": {
+		"source": """
+		ctx._source.type = ctx._type;
+		ctx._id = ctx._type + '-' + ctx._id;
+		ctx._type = 'doc';
+		"""
+	}
+}
+
+
+
+
+"task": "Y_U8sxx2RrCQEsJNZzumrg:736120"
+
+GET /_tasks/Y_U8sxx2RrCQEsJNZzumrg:736120
